@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  broker:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto_broker
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  app:
+    build: .
+    container_name: streamlit_simulasi
+    ports:
+      - "8501:8501"
+    depends_on:
+      - broker
